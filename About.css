@@ -1,1 +1,33 @@
-/* alksdjfl;akjsdf;laksdjfa; */
+.about-section {
+  background-color: #FF9B85;
+  padding: 50px;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  color: grey;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin: 8px;
+}
+
+.container {
+  padding: 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
