@@ -48,12 +48,24 @@ body {
 /* Add a card effect for articles */
 .card {
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+
   /* margin-left: 20px;
   margin-right: 20px;
   -webkit-margin-collapse: collapse; */
-  border: solid 3px #ee6055;
+  /* border: solid 3px #ee6055; */
+}
+
+.container {
+  padding: 10px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .blogs {
@@ -82,7 +94,7 @@ body {
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
   .leftcolumn, .rightcolumn {
     width: 100%;
     padding: 0;
