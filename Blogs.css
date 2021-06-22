@@ -33,15 +33,16 @@ body {
   padding: 20px;
 }
 .fakeimg1 {
-  background-color: #aaa;
+  background-color: #AAF683;
+  border: solid 2px #60D394;
   width: 100%;
-  padding: 20px;
+  padding: 15px;
 }
 
 .fakeimg1:hover {
   background-color: #FF9B85;
   width: 100%;
-  padding: 20px;
+  padding: 15px;
 }
 
 /* Add a card effect for articles */
@@ -52,7 +53,7 @@ body {
   /* margin-left: 20px;
   margin-right: 20px;
   -webkit-margin-collapse: collapse; */
-  border: dotted 4px #ee6055;
+  border: solid 3px #ee6055;
 }
 
 .blogs {
