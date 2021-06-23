@@ -18,6 +18,7 @@
 }
 
 .card {
+  background-color: #EFFBF4;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   margin: 8px;
 }
@@ -28,10 +29,14 @@
     display: block;
   }
   .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     margin-left: 200px;
     margin-right: 200px;
   }
+}
+
+.green {
+  background-color: #AFE9C9;
 }
 
 .container {

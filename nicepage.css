@@ -12386,7 +12386,9 @@ section.u-image,
   /* background-color: transparent !important; */
   background-image: none !important;
 }
-
+.u-grey-yellow {
+  background-color: #CC9966;
+}
 .u-overlap-transparent .u-header{
   background-color: #996666;
 }
