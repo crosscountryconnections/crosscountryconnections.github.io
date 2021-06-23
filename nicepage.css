@@ -4,6 +4,10 @@
  * Copyright 2014-2020 Froala Labs
  */
 
+.u-green-gray {
+  background-color: #669966;
+}
+
 .fr-clearfix::after {
   clear: both;
   display: block;
@@ -12378,8 +12382,13 @@ section.u-image,
   position: fixed;
 }
 .u-overlap.u-overlap-transparent .u-header {
-  background-color: transparent !important;
+  background-color: #996666;
+  /* background-color: transparent !important; */
   background-image: none !important;
+}
+
+.u-overlap-transparent .u-header{
+  background-color: #996666;
 }
 .u-overlap.u-offcanvas-opened .u-header.u-sticky {
   z-index: auto;
