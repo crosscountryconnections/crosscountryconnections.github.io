@@ -2,6 +2,12 @@
   background-image: none;
 }
 
+video{
+  position: relative;
+  top: 50%;
+  transform: translateY(50%);
+}
+
 .u-section-1 .u-sheet-1 {
   min-height: 752px;
 }
