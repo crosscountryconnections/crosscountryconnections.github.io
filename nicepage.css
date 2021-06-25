@@ -12387,7 +12387,10 @@ section.u-image,
   background-image: none !important;
 }
 .u-grey-yellow {
-  background-color: #CC9966;
+  background-color: #B38176;
+}
+.u-grey-greeen {
+  background-color: #A0B096;
 }
 .u-overlap-transparent .u-header{
   background-color: #996666;
