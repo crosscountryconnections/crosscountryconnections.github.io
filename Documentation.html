@@ -7,17 +7,20 @@
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>Documentation</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
+    <link rel="stylesheet" href="css/Documentation.css" media="screen">
+    <link rel="stylesheet" href="css/nicepage.css" media="screen">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="prism.css" media="screen">
+    
+    <link rel="stylesheet" href="css/prism.css" media="screen">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/templatemo-style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<link rel="stylesheet" href="Documentation.css" media="screen">
-    <script type="text/javascript" src="prism.js"></script>
-    <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <link href="lightbox/lightbox.min.css" rel="stylesheet">
+    <script src="lightbox/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/prism.js"></script>
+    <script class="u-script" type="text/javascript" src="js/jquery-1.9.1.min.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/plugins.js"></script>
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
     
@@ -82,7 +85,8 @@
     <!-- sidebar -->
     <div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-green w3-animate-left" style="width:250px" id="sidebar">
       <button class="w3-bar-item w3-button w3-hide-large w3-hover-blue-grey" onclick="w3_close()">Close &times;</button>
-      <h3 class="w3-bar-item">Documentation</h3>
+      <br>
+      <h3 class="w3-bar-item" style="font-weight: bold; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Documentation</h3>
       <a href="#prototyping" class="w3-bar-item w3-button w3-hover-blue-grey">Prototyping</a>
       <a href="#finalbuild" class="w3-bar-item w3-button w3-hover-blue-grey">Final Physical Build</a>
       <a href="#codearduino" class="w3-bar-item w3-button w3-hover-blue-grey">Code for Arduino</a>
@@ -95,8 +99,8 @@
     <div class="w3-main" style="margin-left:250px; background-color:#D9FAC6; ">
       <div class="w3-container">
         <button class="w3-button w3-green w3-xlarge w3-hide-large w3-hover-blue-grey" onclick="w3_open()">&#9776;</button>
-        <div class="w3-container">
-        <h1>Documentation</h1>
+        <div class="w3-container"><br><br>
+        <h1 style="font-weight: bold;  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Documentation</h1>
 
         <h2 id="prototyping">Prototyping</h2>
       <p>
@@ -123,7 +127,7 @@
           <li>2 Arduinos</li>
           <li>2 frosted acrylic boards</li>
           <li>2 4x4 wood sheets</li>
-          <li>bolts, spaces, and screws</li>
+          <li>bolts, spacers, and screws</li>
           <li>2 power supplies</li>
           <li>2 port expanders</li>
         </ul>
@@ -136,117 +140,226 @@
       <pre>
         <code class="language-c">
   
-  // NeoPixel Ring simple sketch (c) 2013 Shae Erisson
-  // Released under the GPLv3 license to match the rest of the
-  // Adafruit NeoPixel library
-  
-  #include &lt;Adafruit_NeoPixel.h&gt;
-  #ifdef __AVR__
-  #include &lt;avr/power.h&gt; // Required for 16 MHz Adafruit Trinket
-  #endif
-  
-  // Which pin on the Arduino is connected to the NeoPixels?
-  #define LEDPIN 6 // On Trinket or Gemma, suggest changing this to 1
-  
-  // How many NeoPixels are attached to the Arduino?
-  #define NUMPIXELS 90 // Popular NeoPixel ring size
-  
-  // When setting up the NeoPixel library, we tell it how many pixels,
-  // and which pin to use to send signals. Note that for older NeoPixel
-  // strips you might need to change the third parameter -- see the
-  // strandtest example for more information on possible values.
-  Adafruit_NeoPixel pixels(NUMPIXELS, LEDPIN, NEO_GRB + NEO_KHZ800);
-  
-  const int buttonSize = 15;  
-  
-  const int buttonPin[buttonSize] = {A0, A1, A2, 
-                              A3, A4, A5, 
-                              2, 3, 4, 
-                              8, 9, 10, 
-                              11, 12, 13};   
-  
-  bool buttonSwitch[buttonSize];
-  bool buttonUnpressed[buttonSize];
-  bool receivedValues[buttonSize];
-  int buttonReceived = 0;
-  bool newReceived = false;
-  
-  void setup() {
-    // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
-    // Any other board, you can remove this part (but no harm leaving it):
-  #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-    clock_prescale_set(clock_div_1);
-  #endif
-    // END of Trinket-specific code.
-  
-    pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  
-    for(int i=0; i&lt;15; i++){
-      pinMode(buttonPin[i], INPUT_PULLUP);
-    }
-  
-    Serial.begin(115200);
-    
-    pixels.clear(); // Set all pixel colors to 'off'
-  
+// NeoPixel Ring simple sketch (c) 2013 Shae Erisson
+// Released under the GPLv3 license to match the rest of the
+// Adafruit NeoPixel library
+#include <Adafruit_NeoPixel.h>
+
+#define LEDPIN 4 // NeoPixel pin on Arduino
+#define NUMPIXELS 1024 // 1024 of pixels through the whole strip
+
+Adafruit_NeoPixel pixels(NUMPIXELS, LEDPIN, NEO_GRB + NEO_KHZ800); // set up strip
+
+//preview rbg light pins
+#define PRERPIN 7
+#define PREGPIN 6 
+#define PREBPIN 5 
+
+//bay rbg light pins
+#define BAYRPIN 10
+#define BAYGPIN 9
+#define BAYBPIN 8 
+
+//pgh rbg light pins
+#define PGHRPIN 13
+#define PGHGPIN 12
+#define PGHBPIN 11
+
+#define RESETPIN 2 //reset button pin
+
+const char sliderPin = A0; //pin for slider
+
+// reference for button matrix code https://www.baldengineer.com/arduino-keyboard-matrix-tutorial.html
+const byte sideSize = 16; // size of one side of the button matrix
+const int buttonSize = sideSize*sideSize; // size of all buttons in the matrix
+const byte col[sideSize] = {22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37};
+const byte row[sideSize] = {38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
+                          
+struct LightClass {
+  bool pressed;
+  bool on; 
+};
+typedef struct LightClass Light;
+
+struct ButtonClass {
+  Light left;
+  Light right;
+}; 
+typedef struct ButtonClass Button;
+
+unsigned char lr;
+unsigned char lg;
+unsigned char lb; 
+unsigned char rr;
+unsigned char rg;
+unsigned char rb;
+
+static Button buttonArray[buttonSize];
+
+void setup() {
+
+  pixels.begin(); // INITIALIZE NeoPixel strip object 
+  pixels.clear(); // set all pixel colors to "off"
+  pixels.show(); // display cleared board
+
+  //initialize all the buttons
+  for (int i=0; i&lt;sideSize; i++){
+    pinMode(row[i], INPUT);
+    pinMode(col[i], INPUT_PULLUP);
   }
   
-  void loop() {
-    for(int i=0; i&lt;buttonSize; i++){
-      if(digitalRead(buttonPin[i]) == LOW && buttonUnpressed[i]) { //pressed and previously unpressed
-        buttonSwitch[i] = !buttonSwitch[i]; //if light on turn light off, if light off turn light on 
-        buttonUnpressed[i] = false;
-        Serial.println(i);
-        int n = i*3+(i/3)*11; //connecting each button to its three lights  
+  for(int i=0; i&lt;buttonSize; i++){
+
+    Light left = {false, false};  //initialize the left Light struct
+    Light right = {false, false}; //initialize the right Light struct
+
+    //assign the lights to the button
+    buttonArray[i].left = left;
+    buttonArray[i].right = right;
+    
+  }
   
-        if(buttonSwitch[i]) {
-          pixels.setPixelColor(n, pixels.Color(0, 0, 150));
-          pixels.setPixelColor(n+1, pixels.Color(0, 0, 150));
-          pixels.setPixelColor(n+2, pixels.Color(0, 0, 150));
-        } else {
-          pixels.setPixelColor(n, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(n+1, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(n+2, pixels.Color(0, 0, 0));
+  pinMode(sliderPin, INPUT_PULLUP); //set pinMode for color slider
+  pinMode(PRERPIN, OUTPUT);
+  pinMode(PREGPIN, OUTPUT);
+  pinMode(PREBPIN, OUTPUT);
+  pinMode(BAYRPIN, OUTPUT);
+  pinMode(BAYGPIN, OUTPUT);
+  pinMode(BAYBPIN, OUTPUT);
+  pinMode(PGHRPIN, OUTPUT);
+  pinMode(PGHGPIN, OUTPUT);
+  pinMode(PGHBPIN, OUTPUT);
+
+  pinMode(RESETPIN, INPUT_PULLUP);
+
+
+  Serial.begin(115200); // to print to the server
+
+}
+
+void loop() {  
+
+  sliderSetColor(analogRead(sliderPin)); //change right rgb colors based on slider
+
+  if(digitalRead(RESETPIN)==LOW) { //reset button pressed
+    resetLights();
+  }
+  
+  for (byte c=0; c&lt;sideSize; c++) {
+
+    byte currCol = col[c]; 
+
+    pinMode(currCol, OUTPUT); //enable a column
+    digitalWrite(currCol, LOW); 
+    
+    for (byte r=0; r&lt;sideSize; r++) {
+      
+      byte currRow = row[r];
+      pinMode(currRow, INPUT_PULLUP);
+
+      int buttonIndex = r+c*16; // get index of button
+      
+      if (digitalRead(currRow) == LOW){ // button at row r col c pressed
+        if (!buttonArray[buttonIndex].left.pressed) { // button previously unpressed
+          buttonArray[buttonIndex].left.on = !buttonArray[buttonIndex].left.on; // toggle light on/off
+          buttonArray[buttonIndex].left.pressed = true; // set previously pressed to true to prevent multiple reads if the user holds down the button
+          
+          Serial.print(buttonIndex+1); // print index of button (+1 to avoid misreading with 0)
+          Serial.print(",");
+          Serial.print(lr);
+          Serial.print(",");
+          Serial.print(lg);
+          Serial.print(",");
+          Serial.println(lb);
+
+          //calculate lights to change  
+          int rightLights = c*64 + r*2; 
+          int leftLights = 63-(2*r+1) + 64*c;
+          toggleLights(rightLights, buttonArray[buttonIndex].left.on, lr, lg, lb);
+          toggleLights(leftLights, buttonArray[buttonIndex].left.on, lr, lg, lb);
+          
+        }  
+
+      } else if (digitalRead(currRow) == HIGH) { // button at row r col c not pressed
+        if (buttonArray[buttonIndex].left.pressed) { // button previously pressed
+          buttonArray[buttonIndex].left.pressed = false; // change previously pressed to false, will read button press only after user lets go
         }
       } 
-  
-      if(digitalRead(buttonPin[i]) == HIGH && !buttonUnpressed[i]){
-        buttonUnpressed[i] = true;
-      }
+      pinMode(currRow, INPUT);  //turn off pullup, turn off detection from that row
     }
+    
+    pinMode(currCol, INPUT_PULLUP); //turn off detection from that column 
+    
+  }
   
-    if(newReceived) {
-      Serial.println(buttonReceived);
-      receivedValues[buttonReceived] = !receivedValues[buttonReceived];
-      newReceived = false;
-      int i = buttonReceived;
-      int j = i - (i%3) + ((i%3)*2+2)%3;
-      int n = 10 + j*3 + (j/3)*11;
-      //if doing 2 lights to each button: 
-      //int j = i - (i%3) + ((i%3)*2+2)%3;
-      //int n = 7 + j*2 + (j/3)*8;
+  pixels.show();
 
-      
-      if(receivedValues[buttonReceived]) {
-        pixels.setPixelColor(n, pixels.Color(150, 0, 0));
-        pixels.setPixelColor(n+1, pixels.Color(150, 0, 0));
-        pixels.setPixelColor(n+2, pixels.Color(150, 0, 0));
-      } else {
-        pixels.setPixelColor(n, pixels.Color(0, 0, 0));
-        pixels.setPixelColor(n+1, pixels.Color(0, 0, 0));
-        pixels.setPixelColor(n+2, pixels.Color(0, 0, 0));
-      }
-    }
-    pixels.show();
-  }
+}
+
+
+void sliderSetColor(int sliderVal) {
+
+  int inc = 85; //increment for color range, set so we can have 12 colors 
   
-  void serialEvent() {
-    while(Serial.available()){
-      buttonReceived = Serial.readString().toInt();
-      
-      newReceived = true;
-    }
+  if( sliderVal &lt; inc ) { setColor( 255, 255, 255 ) ; } //set color to white
+  else if( sliderVal &lt; inc*2 ) { setColor( 255, 0, 0 ) ; } //set color to red
+  else if( sliderVal &lt; inc*3 ) { setColor( 255, 127, 0 ) ; } //set color to orange
+  else if( sliderVal &lt; inc*4 ) { setColor( 255, 255, 0 ) ; } //set color to yellow
+  else if( sliderVal &lt; inc*5 ) { setColor( 127, 255, 0 ) ; } //set color to chartreuse
+  else if( sliderVal &lt; inc*6 ) { setColor( 0, 255, 0 ) ; } //set color to green
+  else if( sliderVal &lt; inc*7 ) { setColor( 0, 255, 127 ) ; } //set color to aquamarine
+  else if( sliderVal &lt; inc*8 ) { setColor( 0, 255, 255 ) ; } //set color to cyan
+  else if( sliderVal &lt; inc*9 ) { setColor( 0, 127, 255 ) ; } //set color to azure
+  else if( sliderVal &lt; inc*10 ) { setColor( 0, 0, 255 ) ; } //set color to blue
+  else if( sliderVal &lt; inc*11 ) { setColor( 127, 0, 255 ) ; } //set color to violet
+  else if( sliderVal &lt; inc*12 ) { setColor( 255, 0, 255 ) ; } //set color to magenta
+  else { setColor( 255, 0, 127 ) ; } //set color to rose
+}
+
+void setColor(unsigned short r, unsigned short g, unsigned short b) {
+  lr = r;
+  lg = g;
+  lb = b;
+  //invert values since rgb leds are anode
+  analogWrite(PRERPIN, 255-r);
+  analogWrite(PREGPIN, 255-g);
+  analogWrite(PREBPIN, 255-b);
+  analogWrite(BAYRPIN, 255-r);
+  analogWrite(BAYGPIN, 255-g);
+  analogWrite(BAYBPIN, 255-b);
+  analogWrite(PGHRPIN, 255-r);
+  analogWrite(PGHGPIN, 255-g);
+  analogWrite(PGHBPIN, 255-b);
+}
+
+
+
+void toggleLights(int n, bool on, unsigned short r, unsigned short g, unsigned short b){
+  if(on) {
+    //turn on lights if lights previously off
+    setPixels(n, r, g, b);
+    setPixels(n+1, r, g, b);
+  } else {
+    //turn off lights if lights previously on
+    erasePixels(n);
+    erasePixels(n+1);
   }
+}
+
+void setPixels(int index, unsigned short r, unsigned short g, unsigned short b) {
+  pixels.setPixelColor(index, r, g, b); 
+}
+
+void erasePixels(int index) {
+  pixels.setPixelColor(index, 0, 0, 0); 
+}
+
+void resetLights(){
+  pixels.clear();
+  for (int i=0; i&lt;buttonSize; i++) {
+    buttonArray[i].left.on = false;
+  }
+}
 
 
         </code>
@@ -705,18 +818,27 @@ namespace M2MqttUnity
       <h2 id="gallery">Gallery</h2>
 
       <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
           <figure class="effect-ming tm-video-item">
             <img src="images/IMG_6356.png" alt="wood backing" class="img-fluid">
             <figcaption class="d-flex align-items-center justify-content-center">
               <h3>Wood Backing</h3>
-              <a href="images/IMG_6356.png">View more</a>
+              <a href="images/IMG_6356.png" data-lightbox data-image-alt="wood backing">View more</a>
             </figcaption>
           </figure>
       </div>
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
+        <figure class="effect-ming tm-video-item">
+          <img src="images/IMG_6499.png" alt="Wiring the buttons" class="img-fluid">
+          <figcaption class="d-flex align-items-center justify-content-center">
+            <h3>Wiring the buttons</h3>
+            <a href="images/IMG_6499.png" data-lightbox="gallery">View more</a>
+          </figcaption>
+        </figure>
       </div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%;">
+
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 25%;">
           <figure class="effect-ming tm-video-item">
             <img src="images/IMG_6388.png" alt="Putting all buttons in" class="img-fluid" >
             <figcaption class="d-flex align-items-center justify-content-center">
@@ -724,9 +846,9 @@ namespace M2MqttUnity
               <a href="images/IMG_6388.png">View more</a>
             </figcaption>
           </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
+      </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 25%">
           <figure class="effect-ming tm-video-item">
             <img src="images/IMG_6441.png" alt="Wiring on board" class="img-fluid">
             <figcaption class="d-flex align-items-center justify-content-center">
@@ -734,29 +856,19 @@ namespace M2MqttUnity
               <a href="images/IMG_6441.png">View more</a>
             </figcaption>
           </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
-          <figure class="effect-ming tm-video-item">
-            <img src="images/IMG_6499.png" alt="Wiring the buttons" class="img-fluid">
-            <figcaption class="d-flex align-items-center justify-content-center">
-              <h3>Wiring the buttons</h3>
-              <a href="images/IMG_6499.png">View more</a>
-            </figcaption>
-          </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
-          <figure class="effect-ming tm-video-item">
-            <img src="images/IMG_6402.png" alt="Description panels" class="img-fluid">
-            <figcaption class="d-flex align-items-center justify-content-center">
-              <h3>Description panels</h3>
-              <a href="images/IMG_6402.png">View more</a>
-            </figcaption>
-          </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
+</div>
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 49%">
+  <figure class="effect-ming tm-video-item">
+    <img src="images/IMG_6402.png" alt="Description panels" class="img-fluid">
+    <figcaption class="d-flex align-items-center justify-content-center">
+      <h3>Description panels</h3>
+      <a href="images/IMG_6402.png">View more</a>
+    </figcaption>
+  </figure>
+</div>
+       
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
           <figure class="effect-ming tm-video-item">
             <img src="images/ericaprocess1.jpeg" alt="wood backing" class="img-fluid">
             <figcaption class="d-flex align-items-center justify-content-center">
@@ -764,40 +876,42 @@ namespace M2MqttUnity
               <a href="images/ericaprocess1.jpeg">View more</a>
             </figcaption>
           </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
+</div>
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
+  <figure class="effect-ming tm-video-item">
+    <img src="images/ericaprocess4.jpeg" alt="wiring Organization" class="img-fluid">
+    <figcaption class="d-flex align-items-center justify-content-center">
+      <h3>Wire Organization</h3>
+      <a href="images/ericaprocess4.jpeg">View more</a>
+    </figcaption>
+  </figure>
+</div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
           <figure class="effect-ming tm-video-item">
             <img src="images/ericaprocess2.jpeg" alt="Wiring" class="img-fluid">
             <figcaption class="d-flex align-items-center justify-content-center">
-              <h3>Wiring</h3>
+              <h3>Assembling the side panel</h3>
               <a href="images/ericaprocess2.jpeg">View more</a>
             </figcaption>
           </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
+        </div>
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 50%">
           <figure class="effect-ming tm-video-item">
             <img src="images/ericaprocess3.jpeg" alt="more wiring" class="img-fluid">
             <figcaption class="d-flex align-items-center justify-content-center">
-              <h3>More Wiring</h3>
+              <h3>Wiring on the Arduino</h3>
               <a href="images/ericaprocess3.jpeg">View more</a>
             </figcaption>
           </figure>
-      </div></div>
-      <div class="row tm-mb-90 tm-gallery">
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="width: 100%">
-          <figure class="effect-ming tm-video-item">
-            <img src="images/ericaprocess4.jpeg" alt="wiring Organization" class="img-fluid">
-            <figcaption class="d-flex align-items-center justify-content-center">
-              <h3>Wire Organization</h3>
-              <a href="images/ericaprocess4.jpeg">View more</a>
-            </figcaption>
-          </figure>
-      </div></div>
+        </div>
+
+        
 
 
-      <video controls loop autoplay muted width="600" style="padding-top: 50px;">
+      <video controls loop autoplay muted width="600" style="padding-top: 50px; width: 50%;">
         <source src="images/IMG_6375.mp4" type="video/mp4">
       </video>
       <div class="caption" style="text-align: left;padding-top: 0;">Laser cutting the description panels</div>

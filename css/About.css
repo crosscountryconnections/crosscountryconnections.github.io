@@ -1,0 +1,50 @@
+.about-section {
+  background-color: #60D394;
+  padding: 50px;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  color: grey;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  background-color: #EFFBF4;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin: 8px;
+}
+
+@media screen and (max-width: 1100px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+}
+
+.green {
+  background-color: #AFE9C9;
+}
+
+.container {
+  padding: 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}

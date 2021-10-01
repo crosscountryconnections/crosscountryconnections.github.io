@@ -1,0 +1,97 @@
+/* #toc_container {
+  background: #f9f9f9 none repeat scroll 0 0;
+  border: 1px solid #aaa;
+  display: table;
+  font-size: 95%;
+  margin: 1em;
+  padding: 20px;
+  width: auto;
+}
+
+.toc_title {
+  font-weight: 700;
+  text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li {
+  list-style: outside none none !important;
+}
+
+#toc_container li {
+  padding: 5px 10px !important;
+}
+
+
+
+#docbody {
+  margin-left: 1em;
+} */
+
+
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+
+/* @media (max-width: 1000px) {
+
+} */
+
+/* pre, code {
+  font-family: monospace, monospace;
+}
+
+pre > code {
+  background-color: #FFCDC2;
+  border: 1px solid #FF9B85;
+  display: block; 
+  word-wrap: normal;
+  text-overflow: ;
+  padding: 10px;
+  margin-left: 90px;
+  margin-right: 90px;
+}
+
+pre {
+  overflow: auto;
+} */
+
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+.caption {
+  font-size: small;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+
+}
