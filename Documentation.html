@@ -137,6 +137,7 @@
       <p>
         The following is the code we implemented to connect the two boards and synchronize the lights and buttons. 
       </p>
+	    <div style="height:20em;overflow:scroll">
       <pre>
         <code class="language-c">
   
@@ -364,10 +365,12 @@ void resetLights(){
 
         </code>
       </pre>
+      </div>
       <h2 id="codemqtt">Code for Unity and MQTT</h2>
       <p>The following code is what we are using to connect MQTT to Unity to look at our button presses digitally. 
         <br> We used the HIVEMQ public MQTT broker to send and receive messages. To connect our Arduinos to MQTT, we used CMU IDeATe's MQTT-Arduino bridge. 
       </p>
+		    <div style="height:20em;overflow:scroll">
       <pre>
         <code class="language-csharp">
           /*
@@ -797,7 +800,7 @@ namespace M2MqttUnity
 
         </code>
       </pre>
-      
+      </div>
       <h2 id="usertest">User Testing</h2>
       <p>
         Based on user testing from the prototypes, we learned: 
